@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Blog</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body bgcolor="linen">
+        <div class="container">
+            <h2>Blog</h2>
+            <form method="POST" action="/blogposts">
+                <div class="form-group">
+                    <label for="your_name">Enter your name:</label>
+                    <input type="text" name="name" class="form-control" id="your_name">
+                </div>
+                <div class="form-group">
+                    <label for="blog_text">Enter text for your blog post:</label>
+                    <textarea name="comment" class="form-control" rows="5" id="blog_text"></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>
