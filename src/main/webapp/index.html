@@ -1,26 +1,75 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>My Blog</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Uses bootstrap to style most of the content.-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="javascript/click_func.js"></script>
     </head>
-    <body bgcolor="linen">
-        <div class="container">
-            <h2>Blog</h2>
-            <form method="POST" action="/blogposts">
-                <div class="form-group">
-                    <label for="your_name">Enter your name:</label>
-                    <input type="text" name="name" class="form-control" id="your_name">
+    <body onload="httpRequest('GET', 0)" style="background-image:url(images/tokyo.jpg); background-repeat: no-repeat; background-attachment: fixed;">
+        <div>
+
+            <!--Empty space at the top (for now)-->
+            <div class="top-bar"></div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1">
+
+                    </div>
+                    <div class="col-sm-2 info-box">
+                        <br>
+                        <center>
+                            <img src="images/photo.jpg" alt="Andy Dang" width="150" height="150" class="img-thumbnail">
+                            <h2>Andy Dang</h2>
+                            <br>
+                            <div class="text-pos">
+                                <p>
+                                    This is my blog where I will write about the progress of my projects once a
+                                    database is up and running.
+                                </p>
+                            </div>
+                        </center>
+                        <br><br>
+                    </div>
+                    <div class="col-sm-6 transparency inner-back">
+                        <div class="inner-header">
+                            My Blog
+                        </div>
+                        <br>
+                        <div class="blog-form" style="background-color:lavender">
+                            <br>
+                            <div class="container-fluid">
+                                <form method="POST" action="/blogposts">
+                                    <div class="form-group">
+                                        <label for="blog_title">Title</label>
+                                        <input type="text" name="title" class="form-control" id="blog_title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blog_text">What do you want to write?</label>
+                                        <textarea name="comment" class="form-control" rows="5" id="blog_text"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-default" onclick="httpRequest('POST', 0)">Post</button>
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+                        <br>
+                        <div id="posts" class="blog-form"></div>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="blog_text">Enter text for your blog post:</label>
-                    <textarea name="comment" class="form-control" rows="5" id="blog_text"></textarea>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            </div>
+
         </div>
     </body>
 </html>
