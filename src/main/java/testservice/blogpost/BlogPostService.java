@@ -37,12 +37,11 @@ public class BlogPostService {
         return false;
     }
 
-    public boolean updateBlogPost(BlogPost blogPost, String id) {
+    public BlogPost updateBlogPost(BlogPost blogPost, String id) {
         if (blogPostRepository.findOne(id) != null) {
-            blogPostRepository.save(blogPost);
-            return true;
+            return blogPostRepository.save(blogPost);
         }
-        return false;
+        return null;
     }
 
     public boolean deleteBlogPost(String id) {

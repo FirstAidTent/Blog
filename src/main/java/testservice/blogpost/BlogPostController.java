@@ -49,9 +49,8 @@ public class BlogPostController {
 
     // The "PUT" request method is used to edit a post.
     @RequestMapping(value = "/blogposts/{id}", method = RequestMethod.PUT)
-    public List<BlogPost> updateBlogPost(@RequestBody BlogPost blogPost, @PathVariable String id) {
-        blogPostService.updateBlogPost(blogPost, id);
-        return blogPostService.getAllBlogPosts();
+    public BlogPost updateBlogPost(@RequestBody BlogPost blogPost, @PathVariable String id) {
+        return blogPostService.updateBlogPost(blogPost, id);
     }
 
     @RequestMapping(value = "/blogposts/{id}", method = RequestMethod.DELETE)

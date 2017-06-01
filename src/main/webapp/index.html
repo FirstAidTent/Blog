@@ -9,11 +9,13 @@
         <!--Uses bootstrap to style most of the content.-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="javascript/click_func.js"></script>
     </head>
-    <body onload="httpRequest('GET', 0)" style="background-image:url(images/tokyo.jpg); background-repeat: no-repeat; background-attachment: fixed;">
+    <body ng-app="myApp" ng-controller="myCtrl" onload="" style="background-image:url(images/tokyo.jpg); background-repeat: no-repeat; background-attachment: fixed;">
         <div>
 
             <!--Empty space at the top (for now)-->
@@ -47,7 +49,7 @@
                         <div class="blog-form" style="background-color:lavender">
                             <br>
                             <div class="container-fluid">
-                                <form method="POST" action="/blogposts">
+                                <form>
                                     <div class="form-group">
                                         <label for="blog_title">Title</label>
                                         <input type="text" name="title" class="form-control" id="blog_title">
@@ -56,13 +58,50 @@
                                         <label for="blog_text">What do you want to write?</label>
                                         <textarea name="comment" class="form-control" rows="5" id="blog_text"></textarea>
                                     </div>
-                                    <button type="button" class="btn btn-default" onclick="httpRequest('POST', 0)">Post</button>
+                                    <button type="button" class="btn btn-default" onclick="" id="post_btn">Post</button>
                                 </form>
                             </div>
                             <br>
                         </div>
                         <br>
-                        <div id="posts" class="blog-form"></div>
+                        <div id="posts" class="blog-form">
+                            <div class="blog-post fd" id="{{x.id}}" ng-hide="false" data-ng-repeat-start="x in posts">
+                                <div id="text_{{x.id}}" class="blog-text">
+                                    <h1 id="title_{{x.id}}">{{x.title}}</h1>
+                                    <hr class="line">
+                                    <p id="comment_{{parsed[i].id}}">{{x.comment}}</p>
+                                </div>
+                                <br>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Edit</button>
+                                <button type="button" class="btn btn-default" ng-click="delPost(x.id)">Delete</button>
+                                <br>
+                            </div>
+                            <hr class="line" id="line{{x.id}}" data-ng-repeat-end ng-show="!$last" />
+                        </div>
+
+                        <script>
+                            var app = angular.module("myApp", ['ngAnimate']);
+
+                            app.controller("myCtrl", function($scope) {
+                                $scope.posts = [];
+                                $scope.delButtons = [];
+                                $scope.delPost = function(postId) {
+                                    deletePost(postId);
+                                };
+                                getPosts();
+                            });
+
+                            $(document).ready(function() {
+                                var title = $('#blog_title');
+                                var text = $('#blog_text');
+                                var postbtn = $('#post_btn');
+                                postbtn.click(function() {
+                                    sendPost();
+                                });
+                            });
+
+                        </script>
+
                     </div>
                     <div class="col-sm-2">
 
@@ -72,4 +111,34 @@
 
         </div>
     </body>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Post</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div id="text">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" value="">
+                            <hr class="line">
+                            <label for="comment">Comment</label>
+                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </html>
