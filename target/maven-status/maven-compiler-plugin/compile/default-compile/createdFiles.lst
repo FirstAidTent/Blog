@@ -1,0 +1,5 @@
+testservice\blogpost\BlogPost.class
+testservice\blogpost\BlogPostRepository.class
+testservice\BlogStart.class
+testservice\blogpost\BlogPostController.class
+testservice\blogpost\BlogPostService.class

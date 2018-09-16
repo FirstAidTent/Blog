@@ -25,12 +25,12 @@ public class BlogPostService {
     }
 
     public BlogPost getBlogPost(String id) {
-        return blogPostRepository.findOne(id);
+        return blogPostRepository.findById(id).get();
     }
 
 
     public boolean addBlogPost(BlogPost blogPost) {
-        if (blogPostRepository.findOne(blogPost.getId()) == null) {
+        if (!blogPostRepository.findById(blogPost.getId()).isPresent()) {
             blogPostRepository.save(blogPost);
             return true;
         }
@@ -38,15 +38,15 @@ public class BlogPostService {
     }
 
     public BlogPost updateBlogPost(BlogPost blogPost, String id) {
-        if (blogPostRepository.findOne(id) != null) {
+        if (blogPostRepository.findById(id).isPresent()) {
             return blogPostRepository.save(blogPost);
         }
         return null;
     }
 
     public boolean deleteBlogPost(String id) {
-        if (blogPostRepository.findOne(id) != null) {
-            blogPostRepository.delete(id);
+        if (blogPostRepository.findById(id).isPresent()) {
+            blogPostRepository.deleteById(id);
             return true;
         }
          return false;
